@@ -32,5 +32,5 @@ npm全局安装fast-template-cli
 fast-template -h, --help          输出使用帮助信息
 fast-template -v, --version       版本号
 fast-template create < app-name > 创建脚手架项目  
-fast-template list                列出所有可使用脚手架模板  
+fast-template list                列出所有项目脚手架模板  
 ```

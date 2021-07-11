@@ -2,11 +2,10 @@
 
 用于快速拉取 基础项目模板的 命令行工具.
 
-## 当前支持的 基础项目模板
+## 当前支持的 基础项目模板(敬请期待, 后续会支持更多...  )
 
 1. ([npm-ts-template-starter](https://github.com/zhaoxm469/npm-ts-template-starter))快速 构建库 或者插件的 项目基础模板  
 
-敬请期待, 后续会支持更多...  
 <!-- 1. (vue-admin)PC端 vue2.6 + element-ui 的后台管理项目 -->
 
 ## 版本要求

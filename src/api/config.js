@@ -1,8 +1,7 @@
 const axios = require('axios');
 const { loading } = require('../utils/index');
 
-const baseURL = 'https://git.nucarf.cn/api/v4';
-const privateToken = 'HyZ--BsW72_Ty73hyKbP';
+const baseURL = 'https://api.github.com';
 
 let needLoadingRequestCount = 0;
 function showLoading() {
@@ -23,12 +22,8 @@ function hideLoading() {
 const instance = axios.create({
     baseURL,
     timeout: 5000,
-    params: {
-        private_token: privateToken,
-    },
 });
 
-instance.privateToken = privateToken;
 instance.interceptors.request.use((config) => {
     showLoading();
     return config;

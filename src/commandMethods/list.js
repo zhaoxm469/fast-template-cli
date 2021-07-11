@@ -1,4 +1,4 @@
-const { getFeProjectList } = require('../api/index');
+const { getFeProjectList } = require('../api/modules/index');
 const { log, commandPromptTextLog } = require('../utils/index');
 
 module.exports = async () => {

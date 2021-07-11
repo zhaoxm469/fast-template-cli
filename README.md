@@ -2,7 +2,9 @@
 
 用于快速拉取 基础项目模板的 命令行工具.
 
-## 当前支持的 基础项目模板(敬请期待, 后续会支持更多...  )
+## 当前支持的 基础项目模板
+
+* 后续会支持更多, 敬请期待...
 
 1. ([npm-ts-template-starter](https://github.com/zhaoxm469/npm-ts-template-starter))快速 构建库 或者插件的 项目基础模板  
 
@@ -35,3 +37,7 @@ fast-template -v, --version       版本号
 fast-template create < app-name > 创建脚手架项目  
 fast-template list                列出所有项目脚手架模板  
 ```
+
+## 联系方式
+
+zhaoxm469@163.com

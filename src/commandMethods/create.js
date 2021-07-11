@@ -1,33 +1,30 @@
+/* cSpell:disable */
 const download = require('download-git-repo');
 const pify = require('pify');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const execa = require('execa');
-const { privateToken } = require('../api/config');
-const { getFeProjectList } = require('../api/index');
+// const execa = require('execa');
+const { getFeProjectList } = require('../api/modules/index');
+
 const {
     log, isExistDir, rmDeepDir, path, hasYarn, loading, commandPromptTextLog,
 } = require('../utils/index');
 
 let packageManager = 'npm';
-let pageInstall = '--registry https://registry.npm.taobao.org install ';
+// const pageInstall = '--registry https://registry.npm.taobao.org install ';
 
 if (!hasYarn()) {
     packageManager = 'yarn';
-    pageInstall = '--registry=https://registry.npmjs.org/';
+    // pageInstall = '--registry=https://registry.npmjs.org/';
 }
 
 const downLoadLogMsg = {
-    yarn: ['yarn serve'],
-    npm: ['npm run serve'],
+    yarn: ['yarn'],
+    npm: ['npm run install'],
 };
 
 async function downLoadTemplate({ appName }) {
     const templateList = await getFeProjectList();
-    templateList.forEach((item) => {
-        // eslint-disable-next-line no-param-reassign
-        item.value = item.web_url;
-    });
 
     const { url } = await inquirer.prompt([
         {
@@ -37,38 +34,40 @@ async function downLoadTemplate({ appName }) {
             choices: templateList,
         },
     ]);
-
-    const { id } = templateList.find((item) => item.value === url);
+    const { zipDownLoadUrl } = templateList.find((item) => item.name === url);
+    const gitDownPath = /.com\/repos(.*)/.exec(zipDownLoadUrl)[1].replace('zipball', 'zip');
     loading.show('拉取模板中...\n');
     try {
-        await pify(download)(`direct:https://git.nucarf.cn/api/v4/projects/${id}/repository/archive`, appName, {
-            headers: {
-                'PRIVATE-TOKEN': privateToken,
-            },
-        });
+        await pify(download)(`direct:https://codeload.github.com${gitDownPath}`, appName);
 
         loading.hide();
-        loading.show('安装依赖中...\n');
 
-        execa(packageManager, pageInstall.split(' '), {
-            cwd: appName,
-        }).then(() => {
-            loading.hide();
-            log('  依赖安装成功 \n');
+        log('项目模板拉成功\n');
+        log('👉 开始使用以下命令：\n');
+        commandPromptTextLog([`cd ${appName}`, ...downLoadLogMsg[packageManager]]);
+        log('\n');
 
-            log(chalk.green('\n🎉 项目脚手架模版创建成功'));
+        // loading.show('安装依赖中...\n');
 
-            if (url.includes('uniapp')) {
-                log(`👉 点击查看运行教程文档:${chalk.cyan('https://uniapp.dcloud.io/quickstart?id=%E8%BF%90%E8%A1%8Cuni-app')}\n\n`);
-            } else {
-                log('👉 开始使用以下命令：\n');
-                commandPromptTextLog([`cd ${appName}`, ...downLoadLogMsg[packageManager]]);
-                log('\n');
-            }
-        }).catch((err) => {
-            loading.hide();
-            log('\n\n  依赖安装失败 请手动执行命令安装！', err);
-        });
+        // execa(packageManager, pageInstall.split(' '), {
+        //     cwd: appName,
+        // }).then(() => {
+        //     loading.hide();
+        //     log('  依赖安装成功 \n');
+
+        //     log(chalk.green('\n🎉 项目脚手架模版创建成功'));
+
+        //     if (url.includes('uniapp')) {
+        //         log(`👉 点击查看运行教程文档:${chalk.cyan('https://uniapp.dcloud.io/quickstart?id=%E8%BF%90%E8%A1%8Cuni-app')}\n\n`);
+        //     } else {
+        //         log('👉 开始使用以下命令：\n');
+        //         commandPromptTextLog([`cd ${appName}`, ...downLoadLogMsg[packageManager]]);
+        //         log('\n');
+        //     }
+        // }).catch((err) => {
+        //     loading.hide();
+        //     log('\n\n  依赖安装失败 请手动执行命令安装！', err);
+        // });
     } catch (err) {
         log(`\n\n  项目拉取失败拉取失败:${url}`);
         log(`  ${chalk.red(err)}\n`);

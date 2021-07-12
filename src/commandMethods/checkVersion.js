@@ -3,10 +3,14 @@ const { getVersions } = require('../api/modules/versions');
 const { log, commandPromptTextLog } = require('../utils/index');
 const { version } = require('../../package.json');
 
-module.exports = async () => {
+module.exports = async (e) => {
     const { tagName } = await getVersions();
     let updateMsg = () => log(' ');
-    if (version.replace(/\D/g, '') < tagName.replace(/\D/g, '')) {
+    // if (typeof e === 'undefined') return updateMsg;
+    const currentVer = version.replace(/\D/g, '');
+    const proVer = tagName.replace(/\D/g, '');
+
+    if (currentVer < proVer) {
         updateMsg = () => {
             log(' ');
             commandPromptTextLog([
@@ -17,6 +21,9 @@ module.exports = async () => {
 
             log(' ');
         };
+        if (typeof e === 'object') updateMsg();
+    } else {
+        log('当前暂无最新版本');
     }
     return updateMsg;
 };

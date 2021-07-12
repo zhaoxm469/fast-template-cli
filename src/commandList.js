@@ -9,4 +9,9 @@ module.exports = [
         commandFileName: 'list',
         description: '列出所有项目脚手架模板',
     },
+    {
+        command: 'checkVersion',
+        commandFileName: 'checkVersion',
+        description: '检测是否有最新版本',
+    },
 ];

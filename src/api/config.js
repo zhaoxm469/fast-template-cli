@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { loading } = require('../utils/index');
 
-const baseURL = 'https://api.github.com';
+const baseURL = 'https://gitee.com';
 
 let needLoadingRequestCount = 0;
 function showLoading() {

@@ -1,3 +1,4 @@
+/* cSpell:disable */
 /* eslint-disable global-require */
 const { program } = require('commander');
 const commandList = require('./commandList');

@@ -4,8 +4,7 @@ const { program } = require('commander');
 const commandList = require('./commandList');
 const { version } = require('../package.json');
 
-// 判断是否输出 更新提示
-const isUpdateMs = require('./utils/update');
+const checkVersion = require('./commandMethods/checkVersion');
 
 require('./commandErrMsg')(program);
 
@@ -18,7 +17,8 @@ commandList.forEach((item) => {
 });
 
 (async () => {
-    const isUpdate = await isUpdateMs();
+    // 判断是否输出 更新提示
+    const isUpdate = await checkVersion();
 
     program
         // 在commder 选项里， 不显示help 帮助信息

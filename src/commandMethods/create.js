@@ -34,17 +34,15 @@ async function downLoadTemplate({ appName }) {
             choices: templateList,
         },
     ]);
-    const [fistName] = name.split('（');
-    const { zipDownLoadUrl } = templateList.find((item) => item.name === fistName);
-    const gitDownPath = /.com\/repos(.*)/.exec(zipDownLoadUrl)[1].replace('zipball', 'zip');
+    const currentData = templateList.find((item) => item.name === name);
 
     loading.show('拉取模板中...\n');
     try {
-        await pify(download)(`direct:https://codeload.github.com${gitDownPath}`, appName);
+        await pify(download)(`direct:https://codeload.github.com/zhaoxm469/${currentData.path}/zip/refs/tags/${currentData.tagName}`, appName);
 
         loading.hide();
 
-        log('项目模板拉成功\n');
+        log('\n🎉 项目模板创建成功\n');
         log('👉 开始使用以下命令：\n');
         commandPromptTextLog([`cd ${appName}`, ...downLoadLogMsg[packageManager]]);
         log('\n');
@@ -71,7 +69,7 @@ async function downLoadTemplate({ appName }) {
         //     log('\n\n  依赖安装失败 请手动执行命令安装！', err);
         // });
     } catch (err) {
-        log(`\n\n  项目拉取失败拉取失败:${fistName}`);
+        log(`\n\n  项目拉取失败拉取失败:${name}`);
         log(`  ${chalk.red(err)}\n`);
         loading.hide();
     }

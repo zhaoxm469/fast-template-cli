@@ -26,16 +26,18 @@ const downLoadLogMsg = {
 async function downLoadTemplate({ appName }) {
     const templateList = await getFeProjectList();
 
-    const { url } = await inquirer.prompt([
+    const { name } = await inquirer.prompt([
         {
             message: '请选择您要使用的脚手架模板',
-            name: 'url',
+            name: 'name',
             type: 'list',
             choices: templateList,
         },
     ]);
-    const { zipDownLoadUrl } = templateList.find((item) => item.name === url);
+    const [fistName] = name.split('（');
+    const { zipDownLoadUrl } = templateList.find((item) => item.name === fistName);
     const gitDownPath = /.com\/repos(.*)/.exec(zipDownLoadUrl)[1].replace('zipball', 'zip');
+
     loading.show('拉取模板中...\n');
     try {
         await pify(download)(`direct:https://codeload.github.com${gitDownPath}`, appName);
@@ -69,7 +71,7 @@ async function downLoadTemplate({ appName }) {
         //     log('\n\n  依赖安装失败 请手动执行命令安装！', err);
         // });
     } catch (err) {
-        log(`\n\n  项目拉取失败拉取失败:${url}`);
+        log(`\n\n  项目拉取失败拉取失败:${fistName}`);
         log(`  ${chalk.red(err)}\n`);
         loading.hide();
     }

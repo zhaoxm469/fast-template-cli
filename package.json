@@ -8,7 +8,7 @@
         "npmp": "node npmp"
     },
     "bin": {
-        "fff": "./bin/index.js"
+        "fast-template": "./bin/index.js"
     },
     "keywords": [
         "fast-template",

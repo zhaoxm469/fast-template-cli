@@ -1,7 +1,7 @@
 /*
  * @Author: zhaoxingming
  * @Date: 2021-07-15 16:08:04
- * @LastEditTime: 2021-07-15 18:36:56
+ * @LastEditTime: 2021-07-15 18:58:26
  * @LastEditors: vscode
  * @Description:npm发布命令，自动修改程序版本号
  *
@@ -51,11 +51,13 @@ const loading = {
     if (updateVer) {
         fs.writeFileSync(pkgPath, newPkg);
         try {
+            loading.show('npm发布中...\n');
             await execa('npm', ['publish']);
         } catch (err) {
             console.log(err.stdout);
             return;
         }
+        loading.hide();
     }
 
     if (!updateVer) return;

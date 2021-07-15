@@ -18,7 +18,6 @@ const downLoadLogMsg = {
 
 async function downLoadTemplate({ appName }) {
     const templateList = await getFeProjectList();
-
     const { name } = await inquirer.prompt([
         {
             message: '请选择您要使用的脚手架模板',
@@ -29,9 +28,27 @@ async function downLoadTemplate({ appName }) {
     ]);
     const currentData = templateList.find((item) => item.name === name);
 
-    loading.show('拉取模板中...\n');
     try {
-        await pify(download)(`direct:https://codeload.github.com/zhaoxm469/${currentData.path}/zip/refs/tags/${currentData.tagName}`, appName);
+        let { gitZipDownLoadUrl } = currentData;
+
+        // 如果有二级菜单的话
+        if (currentData.options) {
+            log('\n');
+            const choices = currentData.options.child;
+            const { name: childName } = await inquirer.prompt([
+                {
+                    message: currentData.options.title,
+                    name: 'name',
+                    type: 'list',
+                    choices,
+                },
+            ]);
+            const childCurrentData = choices.find((item) => item.name === childName);
+            gitZipDownLoadUrl = childCurrentData.gitZipDownLoadUrl;
+        }
+
+        loading.show('创建模板中...\n');
+        await pify(download)(`direct:${gitZipDownLoadUrl}`, appName);
 
         loading.hide();
 

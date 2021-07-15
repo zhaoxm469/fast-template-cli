@@ -1,13 +1,14 @@
 {
     "name": "fast-template-cli",
-    "version": "1.0.5",
+    "version": "0.0.1",
     "description": "用于快速拉取 基础项目模板的 命令行工具.",
     "main": "index.js",
     "scripts": {
-        "commit": "cz"
+        "commit": "cz",
+        "npmp": "node npmp"
     },
     "bin": {
-        "fast-template": "./bin/index.js"
+        "fff": "./bin/index.js"
     },
     "keywords": [
         "fast-template",

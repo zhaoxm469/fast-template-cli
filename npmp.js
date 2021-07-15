@@ -1,7 +1,7 @@
 /*
  * @Author: zhaoxingming
  * @Date: 2021-07-15 16:08:04
- * @LastEditTime: 2021-07-15 18:58:26
+ * @LastEditTime: 2021-07-15 19:03:31
  * @LastEditors: vscode
  * @Description:npm发布命令，自动修改程序版本号
  *
@@ -73,7 +73,7 @@ const loading = {
         try {
             const { stdout: branchName } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
             await execa('git', ['add', 'package.json']);
-            await execa('git', ['commit', '-m', `feat: 版本号修改为：${newPkg}`]);
+            await execa('git', ['commit', '-m', `feat: 版本号修改为：${newVersion}`]);
             await execa('git', ['push', 'origin', branchName]);
         } catch (err) {
             console.log(err.stdout);

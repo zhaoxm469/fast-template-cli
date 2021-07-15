@@ -7,7 +7,7 @@ build/
 dist/
 tmp/
 lib/
-test.js
+test/
 
 # misc
 .idea/

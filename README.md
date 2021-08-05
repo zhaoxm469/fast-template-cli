@@ -6,7 +6,8 @@
 
 * 后续会支持更多, 敬请期待...
 
-1. ([npm-ts-template-starter](https://github.com/zhaoxm469/npm-ts-template-starter))快速 构建库 或者插件的 项目基础模板  
+1. [npm-ts-template-starter](https://github.com/zhaoxm469/npm-ts-template-starter): 快速 构建库 或者插件的 项目基础模板  
+2. [vben 后台管理系统](https://vvbin.cn/doc-next/): vue3.x + ts + vite 开箱即用后台管理系统
 
 <!-- 1. (vue-admin)PC端 vue2.6 + element-ui 的后台管理项目 -->
 

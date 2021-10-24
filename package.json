@@ -1,6 +1,6 @@
 {
     "name": "fast-template-cli",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "用于快速拉取 基础项目模板的 命令行工具.",
     "main": "index.js",
     "scripts": {

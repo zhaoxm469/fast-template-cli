@@ -13,7 +13,7 @@ const packageManager = !hasYarn() ? 'yarn' : 'npm';
 
 const downLoadLogMsg = {
     yarn: ['yarn'],
-    npm: ['npm run install'],
+    npm: ['npm install'],
 };
 
 async function downLoadTemplate({ appName }) {

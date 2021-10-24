@@ -2,7 +2,7 @@ const axios = require('axios');
 const { loading } = require('../utils/index');
 
 // const baseURL = 'http://localhost:3000/api/fast-template-cli';
-const baseURL = 'http://api.izhaoxm.cn/fast-template-cli';
+const baseURL = 'https://c53dc7c4-776c-4d66-ad51-255d60e859bc.bspapp.com/other/fast-template-cli';
 
 let needLoadingRequestCount = 0;
 function showLoading() {
@@ -33,7 +33,7 @@ instance.interceptors.request.use((config) => {
 // 添加响应拦截器
 instance.interceptors.response.use((response) => {
     hideLoading();
-    return response.data.data;
+    return response.data.result;
 },
 (error) => {
     hideLoading();
